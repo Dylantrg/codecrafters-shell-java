@@ -8,10 +8,18 @@ public class Main {
         while(true){
             System.out.print("$ ");
             String input = scanner.nextLine();
-            if (input.equals("exit 0")){
-                System.exit(0);
+            String[] command = input.split(" ", 2);
+            if (command[0].equals("exit")){
+                if(command.length > 1){
+                    System.out.println("exit: too many arguments");
+                } else {
+                    System.exit(0);
+                }
+            } else if (command[0].equals("echo")){
+                System.out.println(command[1]);
+            }else {
+                System.out.println(String.format("%s: command not found", input));
             }
-            System.out.println(String.format("%s: command not found", input));
         }
     }
 }
