@@ -19,7 +19,7 @@ public class Main {
                 System.out.println(command[1]);
             } else if (command[0].equals("type")){
                 if (command[1].equals("exit") || command[1].equals("echo") || command[1].equals("type")){
-                    System.out.println(String.format("%s is a shell built in", command[1]));
+                    System.out.println(String.format("%s is a shell builtin", command[1]));
                 } else {
                     System.out.println(String.format("%s: command not found", command[1]));
                 }
