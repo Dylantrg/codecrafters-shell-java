@@ -10,7 +10,7 @@ public class Main {
             String input = scanner.nextLine();
             String[] command = input.split(" ", 2);
             if (command[0].equals("exit")){
-                if(command.length > 1){
+                if(command.length > 2){
                     System.out.println("exit: too many arguments");
                 } else {
                     System.exit(0);
