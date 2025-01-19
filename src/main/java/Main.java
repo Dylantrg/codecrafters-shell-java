@@ -1,6 +1,22 @@
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
+
+    private static List<String> builtin = List.of("exit", "echo", "type");
+
+    private static String getPath(String parameter) {
+        for (String path : System.getenv("PATH").split(":")) {
+          Path fullPath = Path.of(path, parameter);
+          if (Files.isRegularFile(fullPath)) {
+            return fullPath.toString();
+          }
+        }
+        return null;
+      }
     public static void main(String[] args) throws Exception {
         //Uncomment this block to pass the first stage
 
@@ -18,10 +34,15 @@ public class Main {
             } else if (command[0].equals("echo")){
                 System.out.println(command[1]);
             } else if (command[0].equals("type")){
-                if (command[1].equals("exit") || command[1].equals("echo") || command[1].equals("type")){
+                if (builtin.contains(command[1])){
                     System.out.println(String.format("%s is a shell builtin", command[1]));
                 } else {
-                    System.out.println(String.format("%s: not found", command[1]));
+                    String path = getPath(command[1]);
+                    if (path != null) {
+                        System.out.println(command[1] + " is " + path);
+                    } else {
+                        System.out.println(command[1] + ": not found");
+                    } 
                 }
             }
             else {
